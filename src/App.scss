@@ -1,0 +1,37 @@
+.App {
+    display: grid;
+    grid-template-columns: 800px 200px;
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 1em;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.Console {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__diff-selector {
+        display: flex;
+    }
+
+    &__radio {
+        text-transform: capitalize;
+    }
+}
+
+.LetterTable {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(120px, 1fr));
+}
+
+.Letter {
+    text-transform: uppercase;
+}
+
+.Score {
+    grid-column: 2;
+    grid-row: 1;
+}
