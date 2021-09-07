@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 800px 200px;
     grid-template-rows: repeat(2, 1fr);
-    grid-gap: 1em;
+    grid-gap: 3em 1em;
     max-width: 1000px;
     margin: 0 auto;
     text-align: center;
@@ -13,9 +13,22 @@
     flex-direction: column;
     align-items: center;
 
-    &__diff-selector {
-        display: flex;
+    &__start {
+        padding: 6px 10px;
+        background-color: white;
     }
+
+    &__letter-num {
+        padding: 30px;
+        font-weight: 600;
+        font-size: 33px;
+        color: #333;
+    }
+}
+
+.DiffSelect {
+    display: flex;
+    padding: 20px 10px;
 
     &__radio {
         text-transform: capitalize;
