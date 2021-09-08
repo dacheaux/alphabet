@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 import { actions, selectIsGameRunning, selectCurrentLetterNum } from '../app/gameSlice';
@@ -29,12 +28,15 @@ const MainConsole: React.FC<Props> = ({ onGuess }) => {
     return (
         <section className={CLASS}>
             <DiffSelect />
-            <Button variant="outlined" color="primary" onClick={toggleGameStatus} size="large">
+            <Button
+                style={{ fontWeight: 600 }}
+                variant="outlined"
+                color="primary"
+                onClick={toggleGameStatus}
+                size="large"
+            >
                 {isRunning ? 'Stop' : 'Start Game'}
             </Button>
-            {/* <button className={`${CLASS}__start`} type="button" onClick={toggleGameStatus}>
-                {isRunning ? 'Stop' : 'Start Game'}
-            </button> */}
             <div className={`${CLASS}__letter-num`}>{currentLetterNum}</div>
             <input
                 className={`${CLASS}__input`}

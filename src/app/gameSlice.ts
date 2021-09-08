@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
 export const difficultyLevels = <const>['easy', 'medium', 'hard'];
-const userActions = <const>['hit', 'miss'];
 export const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
 export const initialState = {
