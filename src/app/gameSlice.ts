@@ -30,7 +30,7 @@ export const gameSlice = createSlice({
     reducers: {
         toggleStart: (state, action) => {
             const difficulty = state.difficulty;
-            Object.assign(state, { ...initialState, difficulty, isRunning: true });
+            Object.assign(state, { ...initialState, difficulty, isRunning: action.payload });
         },
         toggleDifficulty: (state, action: PayloadAction<typeof difficultyLevels[number]>) => {
             state.difficulty = action.payload;

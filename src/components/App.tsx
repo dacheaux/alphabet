@@ -15,7 +15,7 @@ import '../styles/App.scss';
 
 export const diffTimeouts = {
     easy: 5000,
-    medium: 1500,
+    medium: 3500,
     hard: 2000,
 };
 
@@ -34,9 +34,9 @@ function App() {
         dispatch(actions.generateNewLetterNum(guess));
     };
 
-    const onKeyDown = (e: KeyboardEvent) => {
-        nextNumber(e.key);
-    };
+    // const onKeyDown = (e: KeyboardEvent) => {
+    //     nextNumber(e.key);
+    // };
 
     useEffect(() => {
         if (isRunning) {
@@ -48,21 +48,20 @@ function App() {
 
     useEffect(() => {
         if (currentLetterNum === 0) return;
-
         letterRefId.current = window.setTimeout(nextNumber, timeout);
     }, [currentLetterNum]);
 
     useEffect(() => {
-        document.addEventListener('keydown', onKeyDown);
+        // document.addEventListener('keydown', onKeyDown);
         return () => {
             clearInterval(letterRefId.current);
-            document.removeEventListener('keydown', onKeyDown);
+            // document.removeEventListener('keydown', onKeyDown);
         };
     }, []);
 
     return (
         <div className="App">
-            <Console />
+            <Console onGuess={nextNumber} />
             <LetterTable />
             <Score />
         </div>

@@ -1,5 +1,11 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
 import { actions, difficultyLevels, selectIsGameRunning, selectGameDiff } from '../app/gameSlice';
 
 interface Props {}
@@ -18,19 +24,25 @@ const DiffSelect: React.FC<Props> = (props) => {
 
     return (
         <div className={CLASS}>
-            {difficultyLevels.map((difficulty) => (
-                <div className={`${CLASS}__radio`} key={difficulty}>
-                    <input
-                        value={difficulty}
-                        type="radio"
-                        id={`diff-${difficulty}`}
-                        checked={difficulty === diff}
-                        onChange={onDiffChange}
-                        disabled={isRunning}
-                    />
-                    <label htmlFor={`diff-${difficulty}`}>{difficulty}</label>
-                </div>
-            ))}
+            <FormControl component="fieldset">
+                <RadioGroup
+                    row
+                    aria-label="gender"
+                    name="gender1"
+                    value={diff}
+                    onChange={onDiffChange}
+                >
+                    {difficultyLevels.map((difficulty) => (
+                        <FormControlLabel
+                            value={difficulty}
+                            control={<Radio color="primary" size="small" />}
+                            label={difficulty}
+                            key={difficulty}
+                            disabled={isRunning}
+                        />
+                    ))}
+                </RadioGroup>
+            </FormControl>
         </div>
     );
 };

@@ -1,8 +1,14 @@
+:root {
+    --highlight-neutral: rebeccapurple;
+    --highlight-green: #52b202;
+    --highlight-red: #ff3d00;
+}
+
 .App {
     display: grid;
     grid-template-columns: 800px 200px;
     grid-template-rows: repeat(2, 1fr);
-    grid-gap: 3em 1em;
+    grid-gap: 5em 1em;
     max-width: 1000px;
     margin: 0 auto;
     text-align: center;
@@ -14,8 +20,9 @@
     align-items: center;
 
     &__start {
-        padding: 6px 10px;
+        padding: 8px 12px;
         background-color: white;
+        cursor: pointer;
     }
 
     &__letter-num {
@@ -24,13 +31,23 @@
         font-size: 33px;
         color: #333;
     }
+
+    &__input {
+        padding: 8px;
+    }
 }
 
 .DiffSelect {
     display: flex;
-    padding: 20px 10px;
+    justify-content: center;
+    width: 300px;
+    padding: 30px 10px;
 
     &__radio {
+        text-transform: capitalize;
+    }
+
+    & label span {
         text-transform: capitalize;
     }
 }
@@ -43,24 +60,38 @@
 .Letter {
     text-transform: uppercase;
     font-weight: 600;
+    font-size: 20px;
     color: #333;
 
     &--hit {
-        color: aquamarine;
+        color: var(--highlight-green);
     }
 
     &--miss {
-        color: red;
+        color: var(--highlight-red);
     }
 }
 
 .Score {
     grid-column: 2;
     grid-row: 1;
-    padding: 20px;
+    padding: 30px;
     text-align: right;
+    font-weight: 600;
 
     & > * {
         padding: 4px;
+    }
+
+    &__hit {
+        color: var(--highlight-green);
+    }
+
+    &__miss {
+        color: var(--highlight-red);
+    }
+
+    &__left {
+        color: var(--highlight-neutral);
     }
 }
