@@ -30,13 +30,12 @@ function App() {
     const timeout = diffTimeouts[difficulty];
 
     const nextNumber = (guess = '') => {
+        clearInterval(letterRefId.current);
         dispatch(actions.generateNewLetterNum(guess));
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
-        clearInterval(letterRefId.current);
         nextNumber(e.key);
-        window.document.removeEventListener('keydown', onKeyDown);
     };
 
     useEffect(() => {
@@ -49,15 +48,16 @@ function App() {
 
     useEffect(() => {
         if (currentLetterNum === 0) return;
-        console.log('currentLetterNum', currentLetterNum);
 
-        window.document.addEventListener('keydown', onKeyDown);
-        clearInterval(letterRefId.current);
         letterRefId.current = window.setTimeout(nextNumber, timeout);
     }, [currentLetterNum]);
 
     useEffect(() => {
-        return () => clearInterval(letterRefId.current);
+        document.addEventListener('keydown', onKeyDown);
+        return () => {
+            clearInterval(letterRefId.current);
+            document.removeEventListener('keydown', onKeyDown);
+        };
     }, []);
 
     return (

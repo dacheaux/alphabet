@@ -11,7 +11,6 @@ export const initialState = {
     hit: 0,
     miss: 0,
     currentLetterId: 0,
-    availableNumbers: [...ALPHABET.keys()].map((k) => k + 1),
     guess: '',
     letters: ALPHABET.map((letter, idx) => ({
         val: letter,
@@ -21,34 +20,44 @@ export const initialState = {
     })),
 };
 
+export type letter = typeof initialState.letters[0];
+
+const filterAvailableLetters = (l: letter) => !l.hit && !l.miss;
+
 export const gameSlice = createSlice({
     name: 'game',
     initialState,
     reducers: {
         toggleStart: (state, action) => {
-            state.isRunning = action.payload;
-            state.availableNumbers = initialState.availableNumbers;
+            const difficulty = state.difficulty;
+            Object.assign(state, { ...initialState, difficulty, isRunning: true });
         },
         toggleDifficulty: (state, action: PayloadAction<typeof difficultyLevels[number]>) => {
             state.difficulty = action.payload;
         },
-        updateScore: (state, action: PayloadAction<typeof userActions[number]>) => {
-            state[action.payload] += 1;
-        },
         generateNewLetterNum: (state, action) => {
+            if (!state.isRunning) return;
             const guess = action.payload;
-            const { availableNumbers, currentLetterId, letters } = state;
-            const newLetterId =
-                availableNumbers[Math.floor(Math.random() * availableNumbers.length)];
+            const { currentLetterId, letters } = state;
             const hitOrMiss = ALPHABET[state.currentLetterId - 1] === guess ? 'hit' : 'miss';
 
-            state[hitOrMiss] += 1;
-            state.letters = letters.map((letter) => {
-                if (letter.id === currentLetterId) return { ...letter, [hitOrMiss]: true };
-                return letter;
-            });
+            if (currentLetterId !== 0) {
+                state[hitOrMiss] += 1;
+                state.letters = letters.map((letter) => {
+                    if (letter.id === currentLetterId) return { ...letter, [hitOrMiss]: true };
+                    return letter;
+                });
+            }
+
+            const availableNumbers = state.letters.filter(filterAvailableLetters).map((l) => l.id);
+            if (!availableNumbers.length) {
+                state.isRunning = false;
+                return;
+            }
+
+            const newLetterId =
+                availableNumbers[Math.floor(Math.random() * availableNumbers.length)];
             state.currentLetterId = newLetterId;
-            state.availableNumbers = availableNumbers.filter((n) => n !== newLetterId);
             state.guess = guess;
         },
     },
@@ -61,5 +70,10 @@ export const selectGameDiff = (state: RootState) => state.game.difficulty;
 export const selectCurrentLetterNum = (state: RootState) => state.game.currentLetterId;
 export const selectLetterGuess = (state: RootState) => state.game.guess;
 export const selectLetters = (state: RootState) => state.game.letters;
+export const selectGameStats = ({ game }: RootState) => ({
+    hit: game.hit,
+    miss: game.miss,
+    left: game.letters.filter(filterAvailableLetters).length,
+});
 
 export default gameSlice.reducer;

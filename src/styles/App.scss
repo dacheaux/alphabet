@@ -57,4 +57,10 @@
 .Score {
     grid-column: 2;
     grid-row: 1;
+    padding: 20px;
+    text-align: right;
+
+    & > * {
+        padding: 4px;
+    }
 }
