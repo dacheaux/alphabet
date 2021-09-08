@@ -1,12 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    difficultyLevels,
-    selectIsGameRunning,
-    selectGameDiff,
-    toggleStart,
-    toggleDifficulty,
-} from '../app/gameSlice';
+import { actions, difficultyLevels, selectIsGameRunning, selectGameDiff } from '../app/gameSlice';
 
 interface Props {}
 
@@ -19,7 +13,7 @@ const DiffSelect: React.FC<Props> = (props) => {
 
     const onDiffChange = useCallback((e) => {
         const val = e.target.value;
-        dispatch(toggleDifficulty(val));
+        dispatch(actions.toggleDifficulty(val));
     }, []);
 
     return (

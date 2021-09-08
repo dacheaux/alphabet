@@ -42,6 +42,16 @@
 
 .Letter {
     text-transform: uppercase;
+    font-weight: 600;
+    color: #333;
+
+    &--hit {
+        color: aquamarine;
+    }
+
+    &--miss {
+        color: red;
+    }
 }
 
 .Score {

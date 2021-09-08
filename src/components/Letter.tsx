@@ -1,14 +1,19 @@
 import React from 'react';
+import classnames from 'classnames';
 
-interface Props {
-    value: string;
-    num: number;
-}
+import { initialState as gameState } from '../app/gameSlice';
 
-const Letter: React.FC<Props> = ({ value, num }) => {
+const CLASS = 'Letter';
+
+const Letter: React.FC<typeof gameState.letters[0]> = ({ val, id, hit, miss }) => {
+    const LetterClass = classnames(CLASS, {
+        [`${CLASS}--hit`]: hit,
+        [`${CLASS}--miss`]: miss,
+    });
+
     return (
-        <div className="Letter">
-            {value} ({num})
+        <div className={LetterClass}>
+            {val} ({id})
         </div>
     );
 };

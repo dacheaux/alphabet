@@ -1,16 +1,16 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
+import { selectLetters } from '../app/gameSlice';
 import Letter from './Letter';
 
-interface Props {}
+const LetterTable = () => {
+    const letters = useSelector(selectLetters);
 
-const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
-
-const LetterTable: React.FC<Props> = (props) => {
     return (
         <div className="LetterTable">
-            {ALPHABET.map((letter, idx) => (
-                <Letter value={letter} num={idx + 1} key={idx} />
+            {letters.map((val, idx) => (
+                <Letter {...val} key={idx} />
             ))}
         </div>
     );
